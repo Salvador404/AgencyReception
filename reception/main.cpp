@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -43,7 +45,14 @@ void eventList:: append(int v,int e )
 
 
 
-
+void scan(){
+int a,b;
+	while (1){
+		cin>>a>>b;
+		if (!a){break;}
+		list.append(a,b);
+	}
+}
 
 
 
@@ -53,6 +62,17 @@ void eventList:: append(int v,int e )
 
 int main()
 {
-    
+    string filename;
+    cout<<""<<endl;
+    cout>>filename;
+    ifstream inputFile(filename);
+    if (!inputFile){cerr<<""<<endl;	return 1;}  
+     //---if the filename or something in input path is wrong,the program will close
+    int i,j;
+    eventList list;
+    while (inputFile >> i >> j){ list.append(i,j); }
+
+
+    inputFile.close();
     return 0;
 }
