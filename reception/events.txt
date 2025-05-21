@@ -1,0 +1,14 @@
+VIP/nonVIP | entry at | TurnTime | Waiting
+  nonVip        3         6        3
+  nonVip        7         13        6
+  nonVip        8         16        8
+   vip          10         19        9
+   vip          10         22        12
+  nonVip        12         25        13
+--------------------------------------------------------
+Average waiting time : 8
+Average waiting time for VIP members : 3
+Average waiting time for non-VIP members : 5
+TotalVisitors : 6
+Maximum waiting time : 13
+--------------------------------------------------------

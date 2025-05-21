@@ -62,6 +62,7 @@ void queue::Enqueue(int a , int b)
 		tail->next=new custom_Node(a,b);
 		tail=tail->next;
 		nsize++;
+	}
 
 }
 
@@ -114,6 +115,64 @@ void massg()
 
 }
 
+void upck(res arr[],int s,int i)
+    {
+	    for(int j=0;j<i;j++)
+	    {
+		    if(arr[j].vi==1 && arr[j].time>s)
+		    {
+			    arr[j].time+=3;
+			    arr[j].wait+=3;
+		    }
+
+	    }
+
+    }
+
+int calcwaits(res arr[],int a)
+{
+	    int sum=0;
+	    for (int i=0;i<a;i++)
+	    {
+		    sum+= arr[i].wait;
+	    }
+	    return sum;
+}
+
+int calcvip(res arr[], int a)
+{
+            int sum=0;
+	    for(int i=0;i<a;i++)
+	    {
+		    if(arr[i].vi==2){sum+=arr[i].wait;}
+	    }
+	    return sum;
+}
+
+int calcnvip(res arr[], int a)
+{
+            int sum=0;
+	    for(int i=0;i<a;i++)
+	    {
+		    if(arr[i].vi==1){sum+=arr[i].wait;}
+	    }
+	    return sum;
+}
+
+
+
+
+
+int maxWait(res arr[], int a)
+{
+        int maxi=0;
+	for(int i=0 ; i<a ; i++)
+	{
+		if(arr[i].wait>maxi){maxi=arr[i].wait;}
+	}
+	return maxi;
+}
+
 
 
 
@@ -153,42 +212,39 @@ int main()
 
     if (!check){
 	    cout<<"There is NO data!!!"<<endl;
-	    return ;
+	    return 1;
     }
     
     
-    ofstream logFile(EventsLog.txt);
+    
     int emp=0;
     int count=0;
+    int vcount=0;
     int i;
     res arr[500];
-    void upck(int s,int i)
-    {
-	    for(int j=0;j<i;j++)
-	    {
-		    if(arr[j].vi==1 && arr[j].time>s)
-		    {
-			    arr[j].time+=3;
-			    arr[j].wait+=3;
-		    }
-
-	    }
-
-    }
-
     
-
-
-
 
     while(check)
     {
-	    i=count++;                                                           //*****
+	    i=count++;//*****
+	    if(check->vip==2){vcount++;}
 	    arr[i].vi=check->vip; arr[i].en=check->enter; 
-	    if (check->enter >= emp){emp=check->enter+3;}
-	    if(check==list.head){emp=check->enter+3;}//Employee getting to work
-	    else{emp=emp+((emp-check->enter)+(vip.nsize*3+nonVip.nsize*3));}
+	    //if (check->enter >= emp){emp=check->enter+3;}
+	    //if(check==list.head){emp=check->enter+3;}//Employee getting to work
+	    //else{emp=emp+(vip.nsize*3+nonVip.nsize*3);}//emp-check->enter
 	    
+	    if (check->enter >= emp) {
+	    emp = check->enter + 3; 
+	    } else {
+	    emp = emp + 3; 
+	    }
+
+
+
+
+
+
+
 	    int delta=emp - check->enter;
 	    while(delta>=3 &&(!vip.isEmpty() || !nonVip.isEmpty()))
 	    {
@@ -214,16 +270,58 @@ int main()
 			    if(vip.isEmpty())
 			    {
 				    arr[i].wait=emp-check->enter; arr[i].time=arr[i].wait + check->enter;
-				    upck(check->enter,count);
+				    upck(arr,check->enter,count);
 			    }else{
 				    arr[i].wait=(emp-check->enter)-(nonVip.nsize*3); arr[i].time=arr[i].wait+ check->enter;
-				    upck(check->enter,count);
+				    upck(arr,check->enter,count);
 			    }
 		    }
 	    } 
 	    
 	
 	    check=check->next;	
+    }
+
+
+    float avgWait=0;
+    float avgWaitV=0;
+    float avgWaitNv=0;
+    int maxwaitTime=maxWait(arr , count);
+    avgWaitNv=calcnvip(arr,count)/(count-vcount);
+    avgWaitV=calcvip(arr,count)/vcount;
+    avgWait=calcwaits(arr,count)/count;
+    
+    cout<<"\n The results are ready."<<endl;
+    cout<<"Average waiting time : "<<avgWait<<endl;
+    string cap;
+    cout<<"Do you want to save analysis to a file? [Y/N] "; cin>>cap;
+    if(cap=="y"|| cap=="Y")
+    {
+	    string outputName;
+	    cout<<"\n Choose a filename(e.g. analysis.txt): ";cin>>outputName;
+	    ofstream logFile(outputName);
+	    if(!logFile.is_open()){cerr<<"ERORR!!!could not open file "<<endl; return 1;}//opening file erorr
+	    logFile<<"VIP/nonVIP"<<" | "<<"entry at"<<" | "<<"TurnTime"<< " | "<<"Waiting"<<endl;
+	    for(int i=0;i<count;i++)
+	    {
+		    string vipn;
+		    if(arr[i].vi==1){vipn="nonVip";}else{vipn=" vip  ";}
+		    logFile<<"  "<<vipn<<"        "<< arr[i].en<<"         "<<arr[i].time <<"        "<<arr[i].wait<<endl;
+	    }
+	    logFile<<"--------------------------------------------------------"<<endl;
+	    logFile<<"Average waiting time : "<<avgWait<<endl;
+	    logFile<<"Average waiting time for VIP members : "<<avgWaitV<<endl;
+	    logFile<<"Average waiting time for non-VIP members : "<<avgWaitNv<<endl;
+	    logFile<<"TotalVisitors : "<<count<<endl;
+	    logFile<<"Maximum waiting time : "<<maxwaitTime <<endl;
+	    logFile<<"--------------------------------------------------------"<<endl;
+	    logFile.close();
+	    cout<<"Report saved to file : "<<outputName<<"\n GoodLuck!"<<endl;
+
+    }
+    else{
+	    cout<<"\n GoodLuck!"<<endl;
+	    return 0;
     }
     
 
