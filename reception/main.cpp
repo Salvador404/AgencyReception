@@ -2,7 +2,6 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-
 using namespace std;
 
 //---------------classes and our instruments-------------//
@@ -42,7 +41,7 @@ void eventList:: append(int v,int e )
 	}
 }
 
-/////////////*********///////////////
+///////////////*********///////////////
 class queue
 {
 	public :
@@ -52,7 +51,7 @@ class queue
 		bool isEmpty(){if (head==nullptr){return true;}return false;}
 
 		void Enqueue(int ,int );
-		void Dequeue(); //we just need to remove someone from queue
+		void Dequeue(); //Just remove from queue - no return needed
 };
 
 void queue::Enqueue(int a , int b)
@@ -81,8 +80,7 @@ void queue::Dequeue()
 // ^ we used a queue just to suppurt different data structures;
 //   the program would work fine with a linkedList or even an array.
 
-/////////////*********///////////////
-
+///////////////*********///////////////
 
 struct res
 {
@@ -91,11 +89,9 @@ struct res
 	int time;
 	int wait;
 };
+// Created to record changes during the process
 
-
-
-
-
+///////////////*********///////////////
 void scan(eventList& list){
 int a,b;
 	while (1){
@@ -103,8 +99,8 @@ int a,b;
 		if (!a){break;}
 		list.append(a,b);
 	}
-}
-
+}//cin the data if User choosed manually
+///////////////*********///////////////
 void massg()
 {
 	cout<<"     ============================================================"<<endl;
@@ -114,9 +110,9 @@ void massg()
 	cout<<"     ============================================================"<<endl;
 
 }
-
+///////////////*********///////////////
 void upck(res arr[],int s,int i)
-    {
+{
 	    for(int j=0;j<i;j++)
 	    {
 		    if(arr[j].vi==1 && arr[j].time>s)
@@ -127,8 +123,8 @@ void upck(res arr[],int s,int i)
 
 	    }
 
-    }
-
+}// A function that checks the queue for non-VIP customers
+///////////////*********///////////////
 int calcwaits(res arr[],int a)
 {
 	    int sum=0;
@@ -137,8 +133,8 @@ int calcwaits(res arr[],int a)
 		    sum+= arr[i].wait;
 	    }
 	    return sum;
-}
-
+}//Returns the total wait time
+///////////////*********///////////////
 int calcvip(res arr[], int a)
 {
             int sum=0;
@@ -147,8 +143,8 @@ int calcvip(res arr[], int a)
 		    if(arr[i].vi==2){sum+=arr[i].wait;}
 	    }
 	    return sum;
-}
-
+}//Returns the total wait time for vips
+///////////////*********///////////////
 int calcnvip(res arr[], int a)
 {
             int sum=0;
@@ -157,12 +153,8 @@ int calcnvip(res arr[], int a)
 		    if(arr[i].vi==1){sum+=arr[i].wait;}
 	    }
 	    return sum;
-}
-
-
-
-
-
+}//Returns the total wait time for non-vips
+///////////////*********///////////////
 int maxWait(res arr[], int a)
 {
         int maxi=0;
@@ -171,13 +163,15 @@ int maxWait(res arr[], int a)
 		if(arr[i].wait>maxi){maxi=arr[i].wait;}
 	}
 	return maxi;
-}
+}//Returns the maximum wait time.
+///////////////*********///////////////
 
 
 
 
 
-//------------------------------------------------------//
+
+//---------------------------Main functions---------------------------//
 
 int main()
 {
@@ -215,13 +209,10 @@ int main()
 	    return 1;
     }
 
-
-
     int emp=0;
     int count=0;
     int i;
     res arr[500];
-
 
     while(check)
     {
@@ -268,7 +259,6 @@ int main()
 	    check=check->next;
     }
 
-
     float avgWait=0;
     float avgWaitV=0;
     float avgWaitNv=0;
@@ -309,20 +299,6 @@ int main()
 	    cout<<"\n GoodLuck!"<<endl;
 	    return 0;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return 0;
 }
