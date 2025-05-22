@@ -1,5 +1,8 @@
 Within this project, I tried to use as many different data structures as possible, 
 and there wasn't much focus on efficiency, speed, and improving performance.
+"Right now, the program isn't doing exactly what it's supposed to ;)"
+
+
 
 The program can get data in 2 ways: manually or from a file.
 It stores data in a linked list called eventList with two attributes: vip and enter.
