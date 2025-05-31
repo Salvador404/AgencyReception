@@ -95,8 +95,9 @@ struct res
 void scan(eventList& list){
 int a,b;
 	while (1){
-		cin>>a>>b;
+		cin>>a;
 		if (!a){break;}
+		cin>>b;
 		list.append(a,b);
 	}
 }//cin the data if User choosed manually
@@ -145,7 +146,7 @@ int calcvip(res arr[], int a)
 	    return sum;
 }//Returns the total wait time for vips
 ///////////////*********///////////////
-int calcnvip(res arr[], int a)
+/*int calcnvip(res arr[], int a)// Unused!!!!
 {
             int sum=0;
 	    for(int i=0;i<a;i++)
@@ -153,7 +154,7 @@ int calcnvip(res arr[], int a)
 		    if(arr[i].vi==1){sum+=arr[i].wait;}
 	    }
 	    return sum;
-}//Returns the total wait time for non-vips
+}*///Returns the total wait time for non-vips
 ///////////////*********///////////////
 int maxWait(res arr[], int a)
 {
@@ -263,9 +264,9 @@ int main()
     float avgWaitV=0;
     float avgWaitNv=0;
     int maxwaitTime=maxWait(arr , count);
-    avgWaitNv=calcnvip(arr,count)/count;
-    avgWaitV=calcvip(arr,count)/count;
-    avgWait=calcwaits(arr,count)/count;
+    avgWaitNv=(calcwaits(arr,count)-calcvip(arr,count))/count; //avg wait for non-vip customers
+    avgWaitV=calcvip(arr,count)/count; //avg wait for vip customers
+    avgWait=calcwaits(arr,count)/count; // total wait avg
 
     cout<<"\n The results are ready."<<endl;
     cout<<"Average waiting time : "<<avgWait<<endl;
