@@ -5,7 +5,9 @@ and there wasn't much focus on efficiency, speed, and improving performance.
 
 
 The program can get data in 2 ways: manually or from a file.
-It stores data in a linked list called eventList with two attributes: vip and enter.
+
+It stores data in a linked list called eventList
+with two attributes: vip and enter.
 
 ## Processing:
 
