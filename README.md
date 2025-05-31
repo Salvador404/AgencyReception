@@ -16,15 +16,26 @@ emp gets updated with each event (shows when an employee becomes free based on q
 New people go to either vip or nonVip queue based on their vip status
 
 If a new VIP arrives and the nonVip queue isn't empty:
+<<<<<<< HEAD
 
       The program accesses people in this queue through res arr[]
       Increases their wait time using the upck function
+=======
+The program accesses people in this queue through res arr[]
+Increases their wait time using the upck function
+>>>>>>> 2fd6e8f (Update)
       
 At each processing step, it calculates time passed since last event (delta)
 Processes as many items as possible from queues (VIP first) during this time
 
+<<<<<<< HEAD
 ## Final Output:
 
     Calculates average wait time by checking res arr[]
     Can save detailed report to a file if user wants
+=======
+Final Output:
+Calculates average wait time by checking res arr[]
+Can save detailed report to a file if user wants
+>>>>>>> 2fd6e8f (Update)
 
